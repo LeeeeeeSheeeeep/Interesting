@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gladiator Arena - Combat Snake & Scorpion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="ui-container">
+        <!-- Start Game / Class Selection Menu -->
+        <div id="start-menu" class="glass-panel">
+            <h1 class="glow-text">GLADIATOR ARENA</h1>
+            <p class="subtitle">Wield your tail. Strike your enemies. Survive the swarm.</p>
+            
+            <div class="class-selection">
+                <!-- Snake Class Card -->
+                <div class="class-card active" data-class="snake">
+                    <div class="class-icon">
+                        <svg viewBox="0 0 24 24" width="48" height="48" stroke="#00ff66" stroke-width="2" fill="none"><path d="M12 2a10 10 0 0 0-7.75 16.3l.08.1a10 10 0 0 0 15.34 0l.08-.1A10 10 0 0 0 12 2zm0 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"></path><path d="M12 6c-2 0-3 1.5-3 3s1.5 3.5 3 3.5M12 12c2 0 3.27.96 3.27 2.13C15.27 15.46 13.9 16 12 16"></path></svg>
+                    </div>
+                    <h3>Whip Snake</h3>
+                    <p>Heavy tail whip attack. Length increases max health and sweeping swing velocity.</p>
+                    <ul class="stats">
+                        <li>Attack range: <span>Medium-High</span></li>
+                        <li>Swing force: <span>High</span></li>
+                        <li>Base armor: <span>Medium</span></li>
+                    </ul>
+                </div>
+
+                <!-- Scorpion Class Card -->
+                <div class="class-card" data-class="scorpion">
+                    <div class="class-icon">
+                        <svg viewBox="0 0 24 24" width="48" height="48" stroke="#ff0055" stroke-width="2" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M8 11h8M12 7v8"></path></svg>
+                    </div>
+                    <h3>Venom Scorpion</h3>
+                    <p>Fires a rapid stinger strike. Shorter body, heavier armor, and critical poison damage.</p>
+                    <ul class="stats">
+                        <li>Attack range: <span>Short-Fast</span></li>
+                        <li>Venom impact: <span>Extreme</span></li>
+                        <li>Base armor: <span>High</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="player-name" placeholder="Enter Gladiator Name..." value="Gladiator" maxlength="15">
+                <button class="btn glow-button" onclick="startGame()">ENTER ARENA</button>
+            </div>
+        </div>
+
+        <!-- In-game Hud Panel -->
+        <div id="hud" class="hidden">
+            <div class="hud-top">
+                <div class="hud-stat glass-panel">
+                    <span class="label">GLADIATOR:</span>
+                    <span id="hud-name" class="value">Gladiator</span>
+                </div>
+                <div class="hud-stat glass-panel">
+                    <span class="label">SCORE:</span>
+                    <span id="hud-score" class="value">0</span>
+                </div>
+                <div class="hud-stat glass-panel">
+                    <span class="label">KILLS:</span>
+                    <span id="hud-kills" class="value">0</span>
+                </div>
+            </div>
+
+            <div class="hud-bottom">
+                <div class="health-bar-container glass-panel">
+                    <div class="health-label">HEALTH</div>
+                    <div class="health-bar"><div id="health-fill" style="width: 100%"></div></div>
+                    <div id="health-text">100 / 100</div>
+                </div>
+                <div class="attack-bar-container glass-panel">
+                    <div class="attack-label">WHIP COOLDOWN</div>
+                    <div class="attack-bar"><div id="attack-fill" style="width: 100%"></div></div>
+                </div>
+            </div>
+
+            <!-- Mini Leaderboard -->
+            <div id="mini-leaderboard" class="glass-panel">
+                <h4>ARENA RANKS</h4>
+                <ol id="leaderboard-list">
+                    <!-- Dynamic leaderboard -->
+                </ol>
+            </div>
+
+            <!-- Controls panel -->
+            <div id="controls-help" class="glass-panel">
+                <p>🖱️ <strong>Mouse</strong>: Move head direction</p>
+                <p>⌨️ <strong>SPACE / Click</strong>: Trigger Tail Whip/Sting Attack</p>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over" class="glass-panel hidden">
+            <h2 class="glow-text">DEFEATED IN BATTLE</h2>
+            <p id="game-over-reason">You were struck by a Venomous Stinger.</p>
+            <div class="game-over-stats">
+                <p>Gladiator Name: <span id="go-name"></span></p>
+                <p>Final Score: <span id="go-score"></span></p>
+                <p>Opponents Slain: <span id="go-kills"></span></p>
+            </div>
+            <button class="btn glow-button" onclick="restartToMenu()">RETURN TO BASE</button>
+        </div>
+    </div>
+
+    <!-- The Canvas Viewport -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- Scripts -->
+    <script src="entities.js"></script>
+    <script src="ai.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
