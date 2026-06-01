@@ -1,3 +1,5 @@
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+
 # Gladiator Arena (Interesting Game)
 
 An unconventional, physics-driven HTML5 Canvas combat arena game featuring advanced segmented segment kinematics, Verlet integration whipping physics, and autonomic bot steering AI.
