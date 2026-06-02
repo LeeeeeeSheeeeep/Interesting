@@ -122,6 +122,22 @@ function updatePhysics() {
     const worldMouseY = mouseY + camera.y;
     player.update(worldMouseX, worldMouseY, ARENA_SIZE);
 
+    // Garbage Collection: Remove dead bots from the array to prevent memory leaks
+    bots = bots.filter(b => !b.isDead);
+
+    // Respawn Mechanic: Dynamically maintain arena population
+    if (bots.length < 7) {
+        const botNames = ['ApexPredator', 'PythonWhip', 'ScorpioMax', 'BlackWidow', 'BoaConstrictor', 'VenomStrike', 'TailBasher'];
+        const classes = ['snake', 'scorpion'];
+        const type = classes[Math.floor(Math.random() * classes.length)];
+        
+        // Spawn strategically near boundaries
+        let rx = Math.random() > 0.5 ? Math.random() * 300 + 100 : ARENA_SIZE - (Math.random() * 300 + 100);
+        let ry = Math.random() > 0.5 ? Math.random() * 300 + 100 : ARENA_SIZE - (Math.random() * 300 + 100);
+        
+        bots.push(new Gladiator(`bot-${Date.now()}-${Math.floor(Math.random()*1000)}`, botNames[Math.floor(Math.random() * botNames.length)], type, true, rx, ry));
+    }
+
     // 2. Update Bots AI steering
     for (const bot of bots) {
         updateBotAI(bot, player, bots, food, ARENA_SIZE);
